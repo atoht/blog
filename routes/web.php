@@ -12,15 +12,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware'=>['web']], function() {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    Route::get('admin/test', function () {
-        return view('admin.test');
-    });
+Route::any('admin/login', 'Admin\LoginController@login');
+Route::get('admin/code', 'Admin\LoginController@code');
 
-    Route::any('admin/login', 'Admin\LoginController@login');
-    Route::get('admin/code', 'Admin\LoginController@code');
-    Route::any('admin/crypt', 'Admin\LoginController@crypt');
+Route::group(['middleware'=>['web','admin.login'], 'prefix'=>'admin', 'namespace'=>'Admin'], function() {
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
+    // Route::get('admin/test', function () {
+    //     return view('admin.test');
+    // });
+
+
+    Route::get('index', 'IndexController@index');
+    Route::get('info', 'IndexController@info');
+    Route::any('pass', 'IndexController@pass');
+    Route::get('quit', 'LoginController@quit');
 });

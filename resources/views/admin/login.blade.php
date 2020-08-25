@@ -45,7 +45,7 @@
     sessionStorage.setItem('sessionData','session test data');//设置数据
     var sessionData = sessionStorage.getItem('sessionData');//取出数据
     // $(location).attr('href', '/admin/test');
-    self.location.href='/admin/test';
+    // self.location.href='/admin/test';
 </script>
 </body>
 </html>

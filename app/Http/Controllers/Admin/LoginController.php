@@ -31,8 +31,13 @@ class LoginController extends CommonController
                 return back()->with('msg' , '用户名密码错误');
             }
 
+            session(['user'=>$user]);
+            // dd(session('user'));
+            return redirect('admin/index');
+        }else {
+            // dd($_SERVER);
+            return view('admin.login');
         }
-        return view('admin.login');
     }
     public function code() {
         $code = new \Code;
@@ -42,5 +47,10 @@ class LoginController extends CommonController
     public function crypt() {
         $str = "admin1234";
         echo Crypt::encrypt($str);
+    }
+
+    public function quit() {
+        session(['user'=>null]);
+        return redirect('admin/login');
     }
 }
