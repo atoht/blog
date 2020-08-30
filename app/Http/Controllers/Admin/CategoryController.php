@@ -10,27 +10,35 @@ class CategoryController extends CommonController
 {
     //get.admin/category //全部分类列表
     public function index() {
-        phpinfo();
-        $categorys = Category::all();
-        $data = $this->getTree($categorys);
+        // phpinfo();
+
+        $categorys = (new Category)->tree();
+        // $data = $this->getTree($categorys, 'cate_name', 'cate_id', 'cate_pid', 0);
         // dd($data);
-        // return view('admin.category.index')->with('data', $data);
+        return view('admin.category.index')->with('data', $categorys);
     }
 
-    public function getTree($data) {
-        $arr = array();
-        foreach($data as $key=>$val) {
-            if($val->cate_pid = 0) {
-                $arr[] = $data[$key];
-                foreach($data as $key_=>$val_) {
-                    if($val_->cate_pid == $val->vate_id) {
-                        $arr[] = $data[$key_];
-                    }
-                }
-            }
+    public function changeorder() {
+        $input = Request()->all();
+        $cate = Category::find($input['cate_id']);
+        $cate->cate_order = $input['cate_order'];
+        $re = $cate->update();
+        if($re) {
+            $data = [
+                'status' => 0,
+                'msg' => '分类排序更新成功'
+            ];
+        }else {
+                $data = [
+                    'status' => 1,
+                    'msg' => '分类排序更新失败'
+                ];
+
         }
-        return $arr;
+        return $data;
     }
+
+
 
     //post.admin/category
     public function store() {
