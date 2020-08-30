@@ -36,11 +36,11 @@ class IndexController extends CommonController
                 $sessionUser = session('user');
                 $user = $users->getUser($sessionUser[0]['name']);
                 $_password = Crypt::decrypt($user[0]['password']);
-                echo $_password;
                 if($input['password_o'] == $_password) {
-                    
+                    $users->updatePassword($user[0]['name'], Crypt::encrypt($input['password']));
+                    return back()->with('errors', '密码更新成功');
                 }else {
-                    return back()->withErrors('errors', '原密码错误');
+                    return back()->with('errors', '原密码错误');
                 }
             }else {
                 //返回错误信息

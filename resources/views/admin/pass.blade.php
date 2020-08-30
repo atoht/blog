@@ -11,7 +11,7 @@
 <div class="result_wrap">
     <div class="result_title">
         <h3>修改密码</h3>
-        @if(count($errors)>0)
+        @if($errors)
             <div class="mark">
                 @if(is_object($errors))
                     @foreach($errors->all() as $error)

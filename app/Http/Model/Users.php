@@ -13,4 +13,8 @@ class Users extends Model
     public function getUser($name) {
         return $this->where('name', '=', $name)->get();
     }
+
+    public function updatePassword($name, $password) {
+        $this->where("name", $name )->update(['password'=>$password]);
+    }
 }
