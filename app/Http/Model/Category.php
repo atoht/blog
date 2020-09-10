@@ -9,6 +9,7 @@ class Category extends Model
     protected $table = 'blog_category';
     protected $primaryKey = 'cate_id';
     public $timestamps = false;
+    protected $guarded=[];
 
     public function tree() {
         $categorys = $this->orderBy('cate_order', 'asc')->get();
