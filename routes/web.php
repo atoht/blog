@@ -33,6 +33,8 @@ Route::group(['middleware'=>['web','admin.login'], 'prefix'=>'admin', 'namespace
     Route::resource('category', 'CategoryController');
     Route::get('cate/create', 'CategoryController@create');
 
-    Route::get('article', 'ArticleController@index');
-    Route::get('article/create', 'ArticleController@create');
+    Route::resource('article', 'ArticleController');
+    // Route::get('article', 'ArticleController@index');
+    // Route::get('article/create', 'ArticleController@create');
+    Route::any('upload', 'CommonController@upload');
 });
